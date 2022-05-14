@@ -1,0 +1,33 @@
+#root {
+  background-color: #282c34;
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /*justify-content: center;*/
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+.welcome{
+  margin-left:auto;
+  margin-right:0.5rem;
+  color: greenyellow;
+}
+.app-navbar {
+  width: 100%;
+  background-color: dodgerblue;
+  color: #282c34;
+}
+.logout {
+  border:none;
+  background-color: dodgerblue;
+  color: #282c34;
+}
+.app-brand {
+  font-size: 2rem;
+  color: greenyellow;
+}
+.nav-pages {
+  color: #282c34;
+}
