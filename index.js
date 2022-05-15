@@ -4,8 +4,12 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const dal = require("./dal.js");
 const app = express();
-
-// used to serve static files from public directory
+const path = require("path");
+// used to serve static files from build directory
+app.use(express.static(path.resolve(__dirname, "./client/build")));
+app.get("*", function (request, response) {
+  response.sendFile(path.resolve(__dirname, "./client/build", "index.html"));
+});
 app.use(cors());
 
 // create user account
@@ -120,6 +124,6 @@ app.get("/account/all", function (req, res) {
   }
 });
 
-const PORT = process.env.PORT || 5000
+const port = process.env.PORT || 5000
 app.listen(port);
 console.log("Running on port:" + port);

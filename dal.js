@@ -1,19 +1,18 @@
-const MongoClient = require("mongodb").MongoClient;
-const url = "mongodb://localhost:27017";
+const { MongoClient, ServerApiVersion } = require('mongodb');
+const uri = "mongodb+srv://admin:topsecret@badbank.vmjfe.mongodb.net/badbank?retryWrites=true&w=majority";
+const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
 let db = null;
-const bcrypt = require("bcryptjs");
-// connect to mongodb
-MongoClient.connect(url, { useUnifiedTopology: true }, (err, client) => {
-  console.log("Connected successfully to db server!");
-  //connect to db
+client.connect(err => {
   db = client.db("badbank");
+  console.log("Connected successfully to db server!");
 });
+
 
 //create a user
 const create = (name, email, password) => {
   return new Promise((resolve, reject) => {
     const collection = db.collection("users");
-    const doc = { name, email, password, accountType: "Checking", balance: 0 };
+    const doc = { name, email, password, account: "Checking", balance: 0 };
     collection.insertOne(doc, { w: 1 }, (err, result) => {
       err ? reject(err) : resolve(doc);
     });
