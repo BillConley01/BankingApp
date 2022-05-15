@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { HashRouter, Route, Routes } from "react-router-dom";
 import NavBar from "./components/navbar.js";
 import Home from "./pages/home";
@@ -9,10 +9,10 @@ import Login from "./pages/login";
 import Deposit from "./pages/deposit";
 
 function App() {
-  const [status, setStatus] = React.useState(null);
-  React.useEffect(() => {
+  const [status, setStatus] = useState(null);
+  useEffect(() => {
     setInterval(() => {
-      setStatus(localStorage.getItem("token1"));
+      setStatus(localStorage.getItem("token"));
     }, 3000);
   }, []);
   

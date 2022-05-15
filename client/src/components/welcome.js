@@ -1,6 +1,6 @@
 import { useState } from "react";
 const Welcome = () => {
-  const [name, setName] = useState(localStorage.getItem("token3"));
+  const [name] = useState(localStorage.getItem("token1"));
 
   return (
     <>

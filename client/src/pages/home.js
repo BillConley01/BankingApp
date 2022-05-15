@@ -17,7 +17,7 @@ const Home = () => {
    text="For all your internet Bankings needs!"
    body={(<img src="bank.png" 
             className="img-fluid w-75" 
-            alt="Responsive Bank Image"/>)}
+            alt="Bank"/>)}
    />
    </>
     );

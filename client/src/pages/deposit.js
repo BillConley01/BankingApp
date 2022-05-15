@@ -2,14 +2,14 @@ import React, { useEffect, useState } from "react";
 import ATM from "../components/ATM";
 import Card from "../components/card.js";
 import Welcome from "../components/welcome";
+
 const Deposit = () => {
-  //state for amount and email
-  const [email, setEmail] = useState("");
+  //state for amount
   const [amount, setAmount] = useState(0.0);
   //sets account balance
   const [total, setTotal] = useState(0);
   //sets atm component status to deposit
-  const [atmMode, setAtmMode] = useState("Deposit");
+  const [atmMode] = useState("Deposit");
   //state to enable and disable submit button
   const [validTransaction, setValidTransaction] = useState(false);
   // Clears input field after form is submitted or ATM mode Changed
@@ -28,23 +28,23 @@ const Deposit = () => {
   };
 
   useEffect(() => {
-    const email = localStorage.getItem("token1");
     const balance = localStorage.getItem("token2");
-    if (email && balance) {
-      setEmail(email);
+    if (balance) {
       setTotal(balance);
-      console.log(email);
       console.log(balance);
     } else {
-      localStorage.removeItem("token1");
       localStorage.removeItem("token2");
     }
   }, []);
-  
+
   //handles submit events
-  const handleSubmit = () => {
-    if (atmMode == "Deposit" && Number(amount) >= 0) {
-      fetch(`/account/update/${email}/${amount}`)
+  const handleSubmit = (event) => {
+    if (atmMode === "Deposit" && Number(amount) >= 0) {
+      fetch(`/account/update/${amount}`, {
+        headers: {
+          "x-access-token": localStorage.getItem("token"),
+        },
+      })
         .then((response) => response.text())
         .then((text) => {
           try {
@@ -63,31 +63,32 @@ const Deposit = () => {
     }
     // Clears input field after form is submitted
     setValue("");
+    event.preventDefault();
   };
 
   return (
     <>
-    <Welcome/>
-    <Card
-      className="deposit-page p-3"
-      hdrcolor="greenyellow"
-      hdrtext="#282c34"
-      bodycolor="dodgerblue"
-      bodytext="#282c34"
-      header="Deposits"
-      title={status}
-      text="Enter Deposit Amount"
-      body={
-        <form className="text-center" onSubmit={handleSubmit}>
-          <ATM
-            onChange={handleChange}
-            atmMode={atmMode}
-            validTransaction={validTransaction}
-            value={value}
-          />
-        </form>
-      }
-    ></Card>
+      <Welcome />
+      <Card
+        className="deposit-page p-3"
+        hdrcolor="greenyellow"
+        hdrtext="#282c34"
+        bodycolor="dodgerblue"
+        bodytext="#282c34"
+        header="Deposits"
+        title={status}
+        text="Enter Deposit Amount"
+        body={
+          <form className="text-center" onSubmit={handleSubmit}>
+            <ATM
+              onChange={handleChange}
+              atmMode={atmMode}
+              validTransaction={validTransaction}
+              value={value}
+            />
+          </form>
+        }
+      ></Card>
     </>
   );
 };

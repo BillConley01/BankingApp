@@ -42,7 +42,7 @@ app.get("/account/login/:email/:password", function (req, res) {
           },
           "topsecret"
         );
-        res.send(user[0]);
+        res.send({ status: "ok", user: token });
         console.log(user);
       } else {
         res.send("Login failed: wrong password");
@@ -54,45 +54,70 @@ app.get("/account/login/:email/:password", function (req, res) {
 });
 
 // find user account using token
-app.get("/account/find/:email", function (req, res) {
+app.get("/account/find", function (req, res) {
   const token = req.headers["x-access-token"];
-  const email = req.params.email;
-  //const email = token.email;
-  dal.find(email).then((user) => {
-    console.log(user);
-    res.send(user);
-  });
+  try {
+    const token_decoded = jwt.verify(token, "topsecret");
+    const email = token_decoded.email;
+    dal.find(email).then((user) => {
+      console.log(user);
+      res.send(user);
+    });
+  } catch (error) {
+    console.log(error);
+    res.json({ status: "error", error: "invalid token" });
+  }
 });
 
 // find one user by email - alternative to find
-app.get("/account/findOne/:email", function (req, res) {
+app.get("/account/findOne", function (req, res) {
   const token = req.headers["x-access-token"];
-  const email = req.params.email;
-  //const email = token.email;
-  dal.findOne(email).then((user) => {
-    console.log(user);
-    res.send(user);
-  });
+  try {
+    const token_decoded = jwt.verify(token, "topsecret");
+    const email = token_decoded.email;
+    dal.findOne(email).then((user) => {
+      console.log(user);
+      res.send(user);
+    });
+  } catch (error) {
+    console.log(error);
+    res.json({ status: "error", error: "invalid token" });
+  }
 });
 
 // update - deposit/withdraw amount
-app.get("/account/update/:email/:amount", function (req, res) {
-  const amount = Number(req.params.amount);
-  const email = req.params.email;
+app.get("/account/update/:amount", function (req, res) {
   const token = req.headers["x-access-token"];
-  //const email = token.email;
-  dal.update(email, amount).then((response) => {
-    console.log(response);
-    res.send(response);
-  });
+  const amount = Number(req.params.amount);
+  try {
+    const token_decoded = jwt.verify(token, "topsecret");
+    const email = token_decoded.email;
+    dal.update(email, amount).then((response) => {
+      console.log(response);
+      res.send(response);
+    });
+  } catch (error) {
+    console.log(error);
+    res.json({ status: "error", error: "invalid token" });
+  }
 });
 
 // all accounts
 app.get("/account/all", function (req, res) {
-  dal.all().then((docs) => {
-    console.log(docs);
-    res.send(docs);
-  });
+  const token = req.headers["x-access-token"];
+  try {
+    const token_decoded = jwt.verify(token, "topsecret");
+    const email = token_decoded.email;
+    if (email) {
+      dal.all().then((docs) => {
+        console.log(docs);
+        res.send(docs);
+      });
+    }
+  } catch (error) {
+    console.log(error);
+    res.json({ status: "error", error: "invalid token" });
+  }
 });
 
 var port = 5000;

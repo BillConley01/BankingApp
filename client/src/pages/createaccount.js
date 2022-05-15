@@ -1,12 +1,13 @@
-import React from "react";
+import { useState } from "react";
 import Card from "../components/card.js";
+import { useNavigate } from "react-router-dom";
 
 
 const CreateAccount = () => {
   //shows input fields and hides them after from submitted
-  const [show, setShow] = React.useState(true);
+  const [show, setShow] = useState(true);
   //sets error messsage
-  const [status, setStatus] = React.useState("");
+  const [status, setStatus] = useState("");
 
   return (
     <Card
@@ -42,12 +43,15 @@ function CreateSuccess(props) {
 }
 const CreateForm = (props) => {
   //sets user properties
-  const [name, setName] = React.useState("");
-  const [email, setEmail] = React.useState("");
-  const [password, setPassword] = React.useState("");
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   //for enabling submit button
-  const [validTransaction, setValidTransaction] = React.useState(false);
+  const [validTransaction, setValidTransaction] = useState(false);
+
+  //to navigate to login page
+  const navigate = useNavigate();
 
   const handleCreate = () => {
     console.log(name, email, password);
@@ -68,6 +72,7 @@ const CreateForm = (props) => {
     alert("Account Successfully Created!");
     clearForm();
     props.setShow(false);
+    navigate("/login");
   };
 
   const enableSubmit = () => {

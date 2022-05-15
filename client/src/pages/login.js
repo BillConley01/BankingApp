@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Card from "../components/card.js";
 import { useNavigate } from "react-router-dom";
+import jwt from "jsonwebtoken";
 
 const Login = () => {
   //shows input fields and hides them after from submitted
@@ -48,6 +49,7 @@ const LoginForm = (props) => {
   const [validTransaction, setValidTransaction] = useState(false);
   //for redirect after login
   const navigate = useNavigate();
+  
   const handleLogin = () => {
     if (!validate(email, "email")) return;
     if (!validate(password, "password")) return;
@@ -59,20 +61,15 @@ const LoginForm = (props) => {
       .then((response) => response.text())
       .then((text) => {
         try {
-          const data = JSON.parse(text);
-          localStorage.setItem("token1", data.email);
-          localStorage.setItem("token2", data.balance);
-          localStorage.setItem("token3", data.name);
-          const token1 = localStorage.getItem("token1");
-          const token2 = localStorage.getItem("token2");
-          const token3 = localStorage.getItem("token3");
-          console.log("email: ", token1);
-          console.log("balance: ", token2);
-          console.log("name: ", token3);
+          const data = JSON.parse(text)
+          localStorage.setItem("token", data.user);
+          const token = localStorage.getItem("token");
+          const user = jwt.decode(token);
+          localStorage.setItem("token1", user.name);
+          localStorage.setItem("token2", user.balance);
           props.setStatus("");
           props.setShow(false);
-          console.log("JSON:", data);
-          alert(`Login Successful, Welcome back ${data.name}!`);
+          alert(`Login Successful, Welcome back ${user.name}!`);
           props.setShow(false);
           clearForm();
           navigate("/");
