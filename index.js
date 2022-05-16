@@ -1,4 +1,5 @@
 const dotenv = require('dotenv');
+dotenv.config();
 const express = require("express");
 const cors = require("cors");
 const jwt = require("jsonwebtoken");
@@ -6,7 +7,6 @@ const bcrypt = require("bcryptjs");
 const dal = require("./dal.js");
 const app = express();
 const path = require("path");
-dotenv.config();
 const port = process.env.PORT;
 // used to serve static files from build directory
 app.use(express.static(path.resolve(__dirname, "./client/build")));
