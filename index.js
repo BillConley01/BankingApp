@@ -5,6 +5,7 @@ const bcrypt = require("bcryptjs");
 const dal = require("./dal.js");
 const app = express();
 const path = require("path");
+const port = process.env.PORT || 5000;
 // used to serve static files from build directory
 app.use(express.static(path.resolve(__dirname, "./client/build")));
 app.get("*", function (request, response) {
@@ -124,6 +125,5 @@ app.get("/account/all", function (req, res) {
   }
 });
 
-const port = process.env.PORT || 5000
 app.listen(port);
 console.log("Running on port:" + port);
