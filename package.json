@@ -6,14 +6,9 @@
   "engines": {
     "node": "14.19.1",
     "npm": "6.14.16"
-    },
+  },
   "scripts": {
-    "build": "cd client && npm run build",
-    "install-client": "cd client && npm install",
-    "heroku-postbuild": "npm run install-client && npm run build",
-    "server": "nodemon index.js",
-    "develop": "concurrently --kill-others-on-fail \"npm run index.js\" \"npm run start --prefix client\"",
-    "start": "concurrently --kill-others-on-fail \"npm run index.js\" \"npm run start --prefix client\""
+    "start": "nodemon server.js"
   },
   "author": "BillC",
   "license": "MIT",
@@ -27,5 +22,6 @@
     "mongo": "^0.1.0",
     "nodemon": "^2.0.16",
     "path": "^0.12.7"
-  }
+  },
+  "proxy": "http://localhost:5000"
 }
