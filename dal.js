@@ -1,13 +1,16 @@
-const { MongoClient, ServerApiVersion } = require('mongodb');
-const uri = MONGO_URI;
-//"mongodb+srv://admin:topsecret@badbank.vmjfe.mongodb.net/badbank?retryWrites=true&w=majority";
-const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
+const { MongoClient, ServerApiVersion } = require("mongodb");
+const uri =
+  "mongodb+srv://admin:topsecret@badbank.vmjfe.mongodb.net/badbank?retryWrites=true&w=majority";
+const client = new MongoClient(uri, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  serverApi: ServerApiVersion.v1,
+});
 let db = null;
-client.connect(err => {
+client.connect((err) => {
   db = client.db("badbank");
   console.log("Connected successfully to db server!");
 });
-
 
 //create a user
 const create = (name, email, password) => {

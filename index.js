@@ -1,5 +1,4 @@
-const dotenv = require('dotenv');
-dotenv.config();
+require("dotenv").config({ path: "./config.env" });
 const express = require("express");
 const cors = require("cors");
 const jwt = require("jsonwebtoken");
@@ -7,11 +6,17 @@ const bcrypt = require("bcryptjs");
 const dal = require("./dal.js");
 const app = express();
 const path = require("path");
-const port = process.env.PORT;
+const port = process.env.PORT || 5000;
 // used to serve static files from build directory
-app.use(express.static(path.resolve(__dirname, "./client/build")));
-app.get("*", function (request, response) {
-  response.sendFile(path.resolve(__dirname, "./client/build", "index.html"));
+app.get("*", function (_, res) {
+  res.sendFile(
+    path.join(__dirname, "./client/build/index.html"),
+    function (err) {
+      if (err) {
+        res.status(500).send(err);
+      }
+    }
+  );
 });
 app.use(cors());
 
