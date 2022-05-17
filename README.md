@@ -11,7 +11,7 @@ A full stack banking application created as a project for MIT Xpro MERN certific
 <li>cd to client directory and run 'npm install' to install all client dependencies..</li>
 <li>Within the same command-line window, run 'npm start' to start the application in your browser.</li>
   </ol>
-  <img src="./ibank.png"/>
+  <img src="./bank.png"/>
 <h2>To see the web page in action follow this link:</h2>
 <a href="https://william-conleyfullstackbanking.herokuapp.com/">Link to Banking App</a>
 <h2>Technology Used:</h2>
