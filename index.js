@@ -8,13 +8,6 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 const PORT = process.env.PORT || 5000;
-// used to serve static files from build directory
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static("client/build"));
-  app.get("*", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
-  });
-}
 
 //app.use(cors());
 
@@ -129,5 +122,13 @@ app.get("/account/all", function (req, res) {
     res.json({ status: "error", error: "invalid token" });
   }
 });
+
+// used to serve static files from build directory
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("client/build"));
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+  });
+}
 
 app.listen(PORT, () => console.log(`Running on port: ${PORT}`));
