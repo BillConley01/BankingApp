@@ -9,7 +9,7 @@ const client = new MongoClient(uri, {
 let db = null;
 client.connect((err) => {
   db = client.db("badbank");
-  console.log("Connected successfully to db server!");
+  //console.log("Connected successfully to db server!");
 });
 
 //create a user

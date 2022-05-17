@@ -31,7 +31,7 @@ const Deposit = () => {
     const balance = localStorage.getItem("token2");
     if (balance) {
       setTotal(balance);
-      console.log(balance);
+      //console.log(balance);
     } else {
       localStorage.removeItem("token2");
     }

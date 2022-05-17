@@ -9,27 +9,24 @@ app.use(express.json());
 app.use(cors());
 const PORT = process.env.PORT || 5000;
 
-//app.use(cors());
-
 // create user account
 app.get("/account/create/:name/:email/:password", function (req, res) {
   // check if account exists
   dal.find(req.params.email).then((users) => {
     // if user exists, return error message
     if (users.length > 0) {
-      console.log("User already in exists");
       res.send("User already in exists");
     } else {
       // else create user
       const hash = bcrypt.hashSync(req.params.password, 10);
       dal.create(req.params.name, req.params.email, hash).then((user) => {
-        console.log(user);
+        //console.log(user);
         res.send(user);
       });
     }
   });
 });
-
+//"https://william-conleyfullstackbanking.herokuapp.com"
 // login user
 app.get("/account/login/:email/:password", function (req, res) {
   dal.find(req.params.email).then((user) => {
@@ -46,7 +43,6 @@ app.get("/account/login/:email/:password", function (req, res) {
           "topsecret"
         );
         res.send({ status: "ok", user: token });
-        console.log(user);
       } else {
         res.send("Login failed: wrong password");
       }
@@ -63,11 +59,11 @@ app.get("/account/find", function (req, res) {
     const token_decoded = jwt.verify(token, "topsecret");
     const email = token_decoded.email;
     dal.find(email).then((user) => {
-      console.log(user);
+      //console.log(user);
       res.send(user);
     });
   } catch (error) {
-    console.log(error);
+    //console.log(error);
     res.json({ status: "error", error: "invalid token" });
   }
 });
@@ -79,11 +75,11 @@ app.get("/account/findOne", function (req, res) {
     const token_decoded = jwt.verify(token, "topsecret");
     const email = token_decoded.email;
     dal.findOne(email).then((user) => {
-      console.log(user);
+      //console.log(user);
       res.send(user);
     });
   } catch (error) {
-    console.log(error);
+    //console.log(error);
     res.json({ status: "error", error: "invalid token" });
   }
 });
@@ -96,11 +92,11 @@ app.get("/account/update/:amount", function (req, res) {
     const token_decoded = jwt.verify(token, "topsecret");
     const email = token_decoded.email;
     dal.update(email, amount).then((response) => {
-      console.log(response);
+      //console.log(response);
       res.send(response);
     });
   } catch (error) {
-    console.log(error);
+    //console.log(error);
     res.json({ status: "error", error: "invalid token" });
   }
 });
@@ -113,12 +109,12 @@ app.get("/account/all", function (req, res) {
     const email = token_decoded.email;
     if (email) {
       dal.all().then((docs) => {
-        console.log(docs);
+        //console.log(docs);
         res.send(docs);
       });
     }
   } catch (error) {
-    console.log(error);
+    //console.log(error);
     res.json({ status: "error", error: "invalid token" });
   }
 });

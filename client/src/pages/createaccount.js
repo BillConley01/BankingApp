@@ -54,7 +54,7 @@ const CreateForm = (props) => {
   const navigate = useNavigate();
 
   const handleCreate = () => {
-    console.log(name, email, password);
+    //console.log(name, email, password);
     if (!validate(name, "name")) return;
     if (!validate(email, "email")) return;
     if (!validate(password, "password")) return;
@@ -66,7 +66,7 @@ const CreateForm = (props) => {
     (async () => {
       const res = await fetch(url);
       const data = await res.json();
-      console.log(data);
+      //console.log(data);
     })();
   
     alert("Account Successfully Created!");
@@ -79,7 +79,7 @@ const CreateForm = (props) => {
     if (name === "" || email === "" || password === "") {
       setValidTransaction(false);
     } else setValidTransaction(true);
-    console.log(`valid ${validTransaction}`);
+    //console.log(`valid ${validTransaction}`);
   };
 
   const validate = (field, label) => {

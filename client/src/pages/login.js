@@ -75,7 +75,7 @@ const LoginForm = (props) => {
           navigate("/");
         } catch (err) {
           props.setStatus(text);
-          console.log("err:", text);
+          //console.log("err:", text);
         }
       });
   };
