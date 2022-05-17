@@ -23,7 +23,6 @@ A full stack banking application created as a project for MIT Xpro MERN certific
 <li>React</li>
 <li>Express</li>
 <li>Node.js</li>
-<li>JSON Web Tokens</li>
 <li>bcrypt.js</li>
 </ul>
 <h2>Features</h2>
@@ -34,6 +33,8 @@ A full stack banking application created as a project for MIT Xpro MERN certific
 <li>Deposits</li>
 <li>Withdrawals</li>
 <li>Account Balance</li>
+<li>JSON Web Tokens</li>
+<li>Password Encryption</li>
 </ul>
 <h2>Roadmap</h2>
 <ul>
