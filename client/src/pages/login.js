@@ -49,7 +49,7 @@ const LoginForm = (props) => {
   const [validTransaction, setValidTransaction] = useState(false);
   //for redirect after login
   const navigate = useNavigate();
-  
+
   const handleLogin = () => {
     if (!validate(email, "email")) return;
     if (!validate(password, "password")) return;
@@ -61,7 +61,7 @@ const LoginForm = (props) => {
       .then((response) => response.text())
       .then((text) => {
         try {
-          const data = JSON.parse(text)
+          const data = JSON.parse(text);
           localStorage.setItem("token", data.user);
           const token = localStorage.getItem("token");
           const user = jwt.decode(token);

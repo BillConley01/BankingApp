@@ -1,24 +1,22 @@
 require("dotenv").config({ path: "./config.env" });
+const path = require("path");
 const express = require("express");
-const cors = require("cors");
+//const cors = require("cors");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const dal = require("./dal.js");
 const app = express();
-const path = require("path");
-const port = process.env.PORT || 5000;
+app.use(express.json());
+const PORT = process.env.PORT;
 // used to serve static files from build directory
-app.get("*", function (_, res) {
-  res.sendFile(
-    path.join(__dirname, "./client/build/index.html"),
-    function (err) {
-      if (err) {
-        res.status(500).send(err);
-      }
-    }
-  );
-});
-app.use(cors());
+if(process.env.NODE_ENV === 'production') {
+  app.use(express.static('client/build'));
+  app.get("*", (req, res) => {
+      res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+  });
+}
+
+//app.use(cors());
 
 // create user account
 app.get("/account/create/:name/:email/:password", function (req, res) {
@@ -132,5 +130,4 @@ app.get("/account/all", function (req, res) {
   }
 });
 
-app.listen(port);
-console.log("Running on port:" + port);
+app.listen(PORT, () => console.log(`Running on port: ${PORT}`));
