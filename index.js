@@ -26,7 +26,7 @@ app.get("/account/create/:name/:email/:password", function (req, res) {
     }
   });
 });
-//"https://william-conleyfullstackbanking.herokuapp.com"
+
 // login user
 app.get("/account/login/:email/:password", function (req, res) {
   dal.find(req.params.email).then((user) => {
@@ -58,9 +58,9 @@ app.get("/account/find", function (req, res) {
   try {
     const token_decoded = jwt.verify(token, "topsecret");
     const email = token_decoded.email;
-    dal.find(email).then((user) => {
-      //console.log(user);
-      res.send(user);
+    dal.find(email).then((account) => {
+      //console.log(account);
+      res.send(account);
     });
   } catch (error) {
     //console.log(error);
@@ -74,9 +74,9 @@ app.get("/account/findOne", function (req, res) {
   try {
     const token_decoded = jwt.verify(token, "topsecret");
     const email = token_decoded.email;
-    dal.findOne(email).then((user) => {
-      //console.log(user);
-      res.send(user);
+    dal.findOne(email).then((account) => {
+      //console.log(account);
+      res.send(account);
     });
   } catch (error) {
     //console.log(error);

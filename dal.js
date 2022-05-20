@@ -15,8 +15,8 @@ client.connect((err) => {
 //create a user
 const create = (name, email, password) => {
   return new Promise((resolve, reject) => {
-    const collection = db.collection("users");
-    const doc = { name, email, password, account: "Checking", balance: 0 };
+    const collection = db.collection("accounts");
+    const doc = { name, email, password, type: "Checking", balance: 0 };
     collection.insertOne(doc, { w: 1 }, (err, result) => {
       err ? reject(err) : resolve(doc);
     });
@@ -27,7 +27,7 @@ const create = (name, email, password) => {
 const all = () => {
   return new Promise((resolve, reject) => {
     const customers = db
-      .collection("users")
+      .collection("accounts")
       .find({})
       .toArray((err, docs) => {
         err ? reject(err) : resolve(docs);
@@ -39,7 +39,7 @@ const all = () => {
 const find = (email) => {
   return new Promise((resolve, reject) => {
     const customers = db
-      .collection("users")
+      .collection("accounts")
       .find({ email: email })
       .toArray(function (err, docs) {
         err ? reject(err) : resolve(docs);
@@ -51,7 +51,7 @@ const find = (email) => {
 const findOne = (email) => {
   return new Promise((resolve, reject) => {
     const customers = db
-      .collection("users")
+      .collection("accounts")
       .findOne({ email: email })
       .then((doc) => resolve(doc))
       .catch((err) => reject(err));
@@ -62,7 +62,7 @@ const findOne = (email) => {
 const update = (email, amount) => {
   return new Promise((resolve, reject) => {
     const customers = db
-      .collection("users")
+      .collection("accounts")
       .findOneAndUpdate(
         { email: email },
         { $inc: { balance: amount } },
