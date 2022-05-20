@@ -42,7 +42,7 @@ function CreateSuccess(props) {
   );
 }
 const CreateForm = (props) => {
-  //sets user properties
+  //sets account properties
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -66,7 +66,7 @@ const CreateForm = (props) => {
     (async () => {
       const res = await fetch(url);
       const data = await res.json();
-      //console.log(data);
+      console.log(data);
     })();
   
     alert("Account Successfully Created!");

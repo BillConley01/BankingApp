@@ -12,7 +12,7 @@ client.connect((err) => {
   //console.log("Connected successfully to db server!");
 });
 
-//create a user
+//create a account
 const create = (name, email, password) => {
   return new Promise((resolve, reject) => {
     const collection = db.collection("accounts");
@@ -23,7 +23,7 @@ const create = (name, email, password) => {
   });
 };
 
-//return all users
+//return all accounts
 const all = () => {
   return new Promise((resolve, reject) => {
     const customers = db

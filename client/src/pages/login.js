@@ -42,7 +42,7 @@ function LoginSuccess(props) {
   );
 }
 const LoginForm = (props) => {
-  //sets user properties
+  //sets account properties
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   //for enabling submit button
@@ -62,20 +62,20 @@ const LoginForm = (props) => {
       .then((text) => {
         try {
           const data = JSON.parse(text);
-          localStorage.setItem("token", data.user);
+          localStorage.setItem("token", data.account);
           const token = localStorage.getItem("token");
-          const user = jwt.decode(token);
-          localStorage.setItem("token1", user.name);
-          localStorage.setItem("token2", user.balance);
+          const account = jwt.decode(token);
+          localStorage.setItem("token1", account.name);
+          localStorage.setItem("token2", account.balance);
           props.setStatus("");
           props.setShow(false);
-          alert(`Login Successful, Welcome back ${user.name}!`);
+          alert(`Login Successful, Welcome back ${account.name}!`);
           props.setShow(false);
           clearForm();
           navigate("/");
         } catch (err) {
           props.setStatus(text);
-          //console.log("err:", text);
+          console.log("err:", text);
         }
       });
   };

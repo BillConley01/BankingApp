@@ -24,7 +24,7 @@ const AllData = () => {
     return (
       <tr key={index}>
         <td className="fs-6 text-wrap">{user.name}</td>
-        <td className="fs-6 text-wrap">{user.email}</td>
+        <td className="fs-6 text-wrap">{user.type}</td>
         <td className="fs-6 text-wrap">${user.balance}</td>
       </tr>
     );
